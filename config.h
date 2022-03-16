@@ -27,12 +27,13 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm]  = { col_white, col_gray2, col_gray1 }, /* bar foreground, bar background, inactive window border */
 	[SchemeSel]   = { col_pink, col_pink , col_pink  },  /* unused, unused, active window border */
-	[SchemeTitle] = { col_white, col_gray2, col_white }, /* title foreground, title background, unused */
+	[SchemeTitle] = { col_white, col_gray2, col_gray2 }, /* title foreground, title background, unused */
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm]  = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]   = { OPAQUE, baralpha, borderalpha },
+	[SchemeTitle]   = { OPAQUE, baralpha, borderalpha },
 };
 
 /* tagging */
