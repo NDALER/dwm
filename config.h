@@ -122,8 +122,8 @@ static Key keys[] = {
    /* modifier                     key        function        argument */
    { MODKEY,                       XK_x,      movecenter,     {0} },
    { MODKEY,                       XK_s,      togglesticky,   {0} },
-   { MODKEY,                       XK_i, shiftviewclients,    { .i = +1 } },
-   { MODKEY,	                    XK_u, shiftviewclients,    { .i = -1 } },
+   { MODKEY,	                    XK_i, shiftviewclients,    { .i = -1 } },
+   { MODKEY,                       XK_o, shiftviewclients,    { .i = +1 } },
    { MODKEY,                       XK_bracketleft,      layoutscroll,   {.i = -1 } },
    { MODKEY,                       XK_bracketright,     layoutscroll,   {.i = +1 } },
    /* { MODKEY|ShiftMask,             XK_o,	shiftview,         { .i = +1 } }, */
