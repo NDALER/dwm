@@ -2,6 +2,8 @@ dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
 
+change the origin of this git to https://git.suckless.org/dwm
+so you could update your base dwm
 
 Requirements
 ------------
