@@ -1,7 +1,5 @@
-config.def.h
-config.def.h.rej
-config.def.h.orig
-config.mk.orig
-config.mk.rej
-dwm.c.orig
-dwm.c.rej
+*.o
+*.rej
+*.orig
+*.def.h
+dwm
