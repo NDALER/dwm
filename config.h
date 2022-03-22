@@ -118,6 +118,7 @@ static const char *termcmd[]  = { "st", NULL };
 //function keys, its on /usr/include/X11/XF86keysym.h
 #include <X11/XF86keysym.h>
 
+#include "movestack.c"
 static Key keys[] = {
    /* modifier                     key        function        argument */
    { MODKEY,                       XK_x,      movecenter,     {0} },
@@ -133,6 +134,8 @@ static Key keys[] = {
    { MODKEY,                       XK_b,      togglebar,      {0} },
    { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
    { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
    { MODKEY,                       XK_apostrophe, incnmaster, {.i = +1 } },
    { MODKEY,                       XK_semicolon, incnmaster,  {.i = -1 } },
    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
