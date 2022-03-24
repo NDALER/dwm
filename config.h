@@ -218,12 +218,12 @@ static Key keys[] = {
    /* i think f12 can't be added because it would lock my keyboard */
    { MODKEY, 		 	XK_F1,     spawn,          SHCMD("dunstify -r 1 (echo 'Brightness  = ' ( xbacklight -get | cut -c1-4))")},
    { MODKEY, 		 	XK_F6,     spawn,          SHCMD("dunstify -r 1 (echo 'Brightness  = ' ( xbacklight -get | cut -c1-4))")},
-   { MODKEY, 		 	XK_F7,     spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/brightnessdown.fish")},
-   { MODKEY, 			XK_F8,     spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/brightnessup.fish")},
-   { MODKEY, 			XK_F9,     spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/volumemuted.fish")},
-   { MODKEY, 			XK_F10,    spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/volumedown.fish")},
-   { MODKEY, 			XK_F11,    spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/volumeup.fish")},
-   { 0, 		   		XK_Print,  spawn,          SHCMD("fish -c /home/ndaler/SCRIPTS/Custom-scripts/screenshot.fish")},
+   { MODKEY, 		 	XK_F7,     spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/brightnessdown.fish")},
+   { MODKEY, 			XK_F8,     spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/brightnessup.fish")},
+   { MODKEY, 			XK_F9,     spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/volumemuted.fish")},
+   { MODKEY, 			XK_F10,    spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/volumedown.fish")},
+   { MODKEY, 			XK_F11,    spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/volumeup.fish")},
+   { 0, 		   		XK_Print,  spawn,          SHCMD("fish -c /home/ndaler/scripts/Custom-scripts/screenshot.fish")},
 };
 
 /* button definitions */
