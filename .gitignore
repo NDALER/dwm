@@ -3,4 +3,5 @@
 *.orig
 *.def.h
 dwm
+d?m
 *test*
