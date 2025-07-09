@@ -7,11 +7,12 @@ static const unsigned int gappih    = 7;        /* horiz inner gap between windo
 static const unsigned int gappiv    = 7;        /* vert inner gap between windows */
 static const unsigned int gappoh    = 7;        /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 7;        /* vert outer gap between windows and screen edge */
-static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+static       int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int attachdirection    = 3;        /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int refreshrate        = 144;      /* Update rate for drag and resize events, in updates (frames) per second */
 static const char *fonts[]          = {"Firacode nerd font mono:pixelsize=13.5:antialias=true:autohint=true", "Noto Sans JP:size=12", };
 static const char dmenufont[]       = "Firacode nerd font mono:pixelsize=13.5:antialias=true:autohint=true";
 /* Colors */
@@ -37,7 +38,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "一", "二", "三", "四", "五" };
+static const char *tags[] = { "一", "二", "三", "四", "五", "六" };
 
 /*static const char *tagsel[][2] = {
    { "#ffffff", "#ba157a" },
@@ -53,6 +54,7 @@ static const char *tagsel[][2] = {
    { "#282a36", "#50fa7b" },
    { "#282a36", "#f1fa8c" },
    { "#ffffff", "#2b3ef3" },
+   { "#282a36", "#FFB38E" },
 };
 
 static const unsigned int tagalpha[] = { OPAQUE, baralpha };
@@ -68,13 +70,14 @@ static const Rule rules[] = {
    /* class                                    instance    title       tags mask     isfloating  isterminal  noswallow monitor */
    { "libreoffice-startcenter",                NULL,       NULL,       1 << 1,       0,          0,           1,       -1 },
    { "Gimp",                                   NULL,       NULL,       1 << 2,       0,          0,           1,       -1 },
+   { "steam",                                  NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
    { "Anki",                                   NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
    { "Font-manager",                           NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
    { "Inkscape",                               NULL,       NULL,       1 << 3,       0,          0,          -1,       -1 },
-   { "Obs",                                    NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
-   { "Thunar",                                 NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
-   { "firefox",                                NULL,       NULL,       1 << 4,       0,          0,          -1,       -1 },
-   { "qutebrowser",                            NULL,       NULL,       1 << 4,       0,          0,          -1,       -1 },
+   { "obs",                                    NULL,       NULL,       2 << 3,       0,          0,           1,       -1 },
+   { "Thunar",                                 NULL,       NULL,       1 << 4,       0,          0,           1,       -1 },
+   { "firefox",                                NULL,       NULL,       1 << 5,       0,          0,          -1,       -1 },
+   { "qutebrowser",                            NULL,       NULL,       1 << 5,       0,          0,          -1,       -1 },
    { "st",                                     NULL,       NULL,       0,            0,          1,           0,       -1 },
    { "ncmpcpp",                                NULL,       NULL,       0,            1,          1,           0,       -1 },
    { NULL,                                     NULL,   "Event Tester", 0,            0,          0,           1,       -1 }, /* xev */
@@ -163,7 +166,7 @@ static Key keys[] = {
    { MODKEY,                          -1,          XK_m,               setcfact,           { .f = +0.25} },
    { MODKEY,                          -1,          XK_comma,           setcfact,           { .f = -0.25} },
    { MODKEY,                          -1,          XK_slash,           setcfact,           { .f =  0.00} },
-   { MODKEY,                          -1,          XK_z,               zoom,               {0} },
+   { MODKEY,                          -1,          XK_z,               zoom,               {0 }},
    { MODKEY,                          -1,          XK_equal,           incrgaps,           { .i = +1 } },
    { MODKEY,                          -1,          XK_minus,           incrgaps,           { .i = -1 } },
    /* { MODKEY|Mod4Mask,                 -1,          XK_i,               incrigaps,          {.i = +1 } }, */
@@ -192,11 +195,11 @@ static Key keys[] = {
    { MODKEY,                          -1,          XK_space,           setlayout,          {0} }, //toggle layout
    { MODKEY,                          -1,          XK_g,               togglefloating,     {0} },
    { MODKEY,                          -1,          XK_f,               togglefullscr,      {0} },
-   { MODKEY,                          -1,          XK_0,               view,               {.ui = ~0 } },
-   { MODKEY|ShiftMask,                -1,          XK_0,               tag,                {.ui = ~0 } },
-   /* { MODKEY,                          -1,          XK_comma,        focusmon,           {.i = -1 } }, */
-   /* { MODKEY,                          -1,          XK_period,       focusmon,           {.i = +1 } }, */
-   /* { MODKEY|ShiftMask,                -1,          XK_comma,        tagmon,             {.i = -1 } }, */
+   /* { MODKEY,                          -1,          XK_0,               toggleview,         {.ui = ~0 } }, */
+   /* { MODKEY|ShiftMask,                -1,          XK_0,               toggletag,          {.ui = ~0 } }, */
+   /* { MODKEY,                          -1,          XK_comma,           focusmon,           {.i = -1 } }, */
+   /* { MODKEY,                          -1,          XK_period,          focusmon,           {.i = +1 } }, */
+   /* { MODKEY|ShiftMask,                -1,          XK_comma,           tagmon,             {.i = -1 } }, */
    { MODKEY,                          -1,          XK_Down,            moveresize,         { .v = "0x 25y 0w 0h" } },
    { MODKEY,                          -1,          XK_Up,              moveresize,         { .v = "0x -25y 0w 0h" } },
    { MODKEY,                          -1,          XK_Right,           moveresize,         { .v = "25x 0y 0w 0h" } },
@@ -219,6 +222,7 @@ static Key keys[] = {
    TAGKEYS(                           -1,          XK_3,                                   2)
    TAGKEYS(                           -1,          XK_4,                                   3)
    TAGKEYS(                           -1,          XK_5,                                   4)
+   TAGKEYS(                           -1,          XK_6,                                   5)
    { MODKEY|ShiftMask,                -1,          XK_q,               quit,               {0} },
    { 0,                               -1,          XF86XK_Explorer,	  spawn,              SHCMD("st -i -e nmtui") }, //fn + f1
    { 0,                               -1,          XF86XK_Tools,       spawn,              SHCMD("st -i -e ncmpcpp") },// fn + f4
@@ -226,16 +230,19 @@ static Key keys[] = {
    { 0,                               -1,          XF86XK_AudioNext,   spawn,              SHCMD("mpc next"  ) },// fn + f6
    { 0,                               -1,          XF86XK_AudioPlay,   spawn,              SHCMD("mpc toggle") },// fn + f7
    { 0,                               -1,          XF86XK_AudioStop,   spawn,              SHCMD("mpc clear" ) },// fn + f8
-   { MODKEY,                          -1,          XK_F7,              spawn,              SHCMD("~/scripts/custom/brightnessdown.sh") },
-   { MODKEY,                          -1,          XK_F8,              spawn,              SHCMD("~/scripts/custom/brightnessup.sh") },
-   { MODKEY,                          -1,          XK_F9,              spawn,              SHCMD("~/scripts/custom/volumemuted.sh") },
-   { MODKEY,                          -1,          XK_F10,             spawn,              SHCMD("~/scripts/custom/volumedown.sh") },
-   { MODKEY,                          -1,          XK_F11,             spawn,              SHCMD("~/scripts/custom/volumeup.sh") },
-   { 0,                               -1,          XK_Print,           spawn,              SHCMD("~/scripts/custom/screenshot.sh") },
-   { MODKEY,                          XK_c,        XK_c,               spawn,              SHCMD("~/scripts/custom/copytocliplist.sh") },
-   { MODKEY,                          XK_v,        XK_c,               spawn,              SHCMD("~/scripts/custom/pastefromclip.sh") },
-   { MODKEY,                          XK_c,        XK_b,               spawn,              SHCMD("~/scripts/custom/copytobook.sh") },
-   { MODKEY,                          XK_v,        XK_b,               spawn,              SHCMD("~/scripts/custom/pastefrombook.sh") },
+   // { MODKEY,                          -1,          XK_F7,              spawn,              SHCMD("~/source/scripts/custom/brightnessdown.sh") },
+   // { MODKEY,                          -1,          XK_F8,              spawn,              SHCMD("~/source/scripts/custom/brightnessup.sh") },
+   { MODKEY,                          -1,          XK_F6,              spawn,              SHCMD("playerctl previous") },
+   { MODKEY,                          -1,          XK_F7,              spawn,              SHCMD("playerctl play-pause") },
+   { MODKEY,                          -1,          XK_F8,              spawn,              SHCMD("playerctl next") },
+   { MODKEY,                          -1,          XK_F9,              spawn,              SHCMD("~/source/scripts/custom/volumemuted.sh") },
+   { MODKEY,                          -1,          XK_F10,             spawn,              SHCMD("~/source/scripts/custom/volumedown.sh") },
+   { MODKEY,                          -1,          XK_F11,             spawn,              SHCMD("~/source/scripts/custom/volumeup.sh") },
+   { 0,                               -1,          XK_Print,           spawn,              SHCMD("~/source/scripts/custom/screenshot.sh") },
+   { MODKEY,                          XK_c,        XK_c,               spawn,              SHCMD("~/source/scripts/custom/copytocliplist.sh") },
+   { MODKEY,                          XK_v,        XK_c,               spawn,              SHCMD("~/source/scripts/custom/pastefromclip.sh") },
+   { MODKEY,                          XK_c,        XK_b,               spawn,              SHCMD("~/source/scripts/custom/copytobook.sh") },
+   { MODKEY,                          XK_v,        XK_b,               spawn,              SHCMD("~/source/scripts/custom/pastefrombook.sh") },
 };
 
 /* button definitions */
