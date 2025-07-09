@@ -2550,7 +2550,7 @@ updategeom(void)
 				selmon = mons;
 			cleanupmon(m);
 		}
-		} 
+		}
 		free(unique);
 	} }else
 #endif /* XINERAMA */
