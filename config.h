@@ -7,7 +7,7 @@ static const unsigned int gappih    = 7;        /* horiz inner gap between windo
 static const unsigned int gappiv    = 7;        /* vert inner gap between windows */
 static const unsigned int gappoh    = 7;        /* horiz outer gap between windows and screen edge */
 static const unsigned int gappov    = 7;        /* vert outer gap between windows and screen edge */
-static       int smartgaps          = 1;        /* 1 means no outer gap when there is only one window */
+static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int attachdirection    = 3;        /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -70,7 +70,7 @@ static const Rule rules[] = {
    /* class                                    instance    title       tags mask     isfloating  isterminal  noswallow monitor */
    { "libreoffice-startcenter",                NULL,       NULL,       1 << 1,       0,          0,           1,       -1 },
    { "Gimp",                                   NULL,       NULL,       1 << 2,       0,          0,           1,       -1 },
-   { "steam",                                  NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
+   { "steam",                                  NULL,       NULL,       1 << 3,       0,          0,           0,       -1 },
    { "Anki",                                   NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
    { "Font-manager",                           NULL,       NULL,       1 << 3,       0,          0,           1,       -1 },
    { "Inkscape",                               NULL,       NULL,       1 << 3,       0,          0,          -1,       -1 },
@@ -239,6 +239,7 @@ static Key keys[] = {
    { MODKEY,                          -1,          XK_F10,             spawn,              SHCMD("~/source/scripts/custom/volumedown.sh") },
    { MODKEY,                          -1,          XK_F11,             spawn,              SHCMD("~/source/scripts/custom/volumeup.sh") },
    { 0,                               -1,          XK_Print,           spawn,              SHCMD("~/source/scripts/custom/screenshot.sh") },
+   { ShiftMask,                       -1,          XK_Print,           spawn,              SHCMD("flameshot gui") },
    { MODKEY,                          XK_c,        XK_c,               spawn,              SHCMD("~/source/scripts/custom/copytocliplist.sh") },
    { MODKEY,                          XK_v,        XK_c,               spawn,              SHCMD("~/source/scripts/custom/pastefromclip.sh") },
    { MODKEY,                          XK_c,        XK_b,               spawn,              SHCMD("~/source/scripts/custom/copytobook.sh") },
